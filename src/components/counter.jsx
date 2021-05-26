@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./counter.css";
 
 class Counter extends Component {
 	render() {
@@ -16,19 +17,12 @@ class Counter extends Component {
 				>
 					+
 				</button>
-				<button
-					onClick={() => {
-						onDecrement(counter.id);
-					}}
-					className="btn btn-secondary m-2 btn-sm"
-				>
-					-
-				</button>
+				{this.getDecrementButton(counter, onDecrement)}
 				<button
 					onClick={() => onDelete(counter.id)}
 					className="btn btn-danger m-2 btn-sm"
 				>
-					Remve
+					Remove
 				</button>
 			</div>
 		);
@@ -40,9 +34,32 @@ class Counter extends Component {
 	}
 
 	getBadgeClasses() {
-		let classes = "badge m-2 btn-";
+		let classes = "badge p-2 m-2 counter-badge btn-";
 		classes += this.props.counter.value === 0 ? "warning" : "primary";
 		return classes;
+	}
+
+	getDecrementButton(counter, onDecrement) {
+		if (counter.value == 0)
+			return (
+				<button
+					className="btn btn-secondary m-2 btn-sm"
+					disabled="disabled"
+				>
+					{" "}
+					-{" "}
+				</button>
+			);
+		return (
+			<button
+				onClick={() => {
+					onDecrement(counter.id);
+				}}
+				className="btn btn-secondary m-2 btn-sm"
+			>
+				-
+			</button>
+		);
 	}
 }
 
